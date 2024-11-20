@@ -1,33 +1,16 @@
-// src/app/app.component.ts
-import { Component, OnInit } from '@angular/core';
-import { Product, ProductService } from './services/product.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component'; 
+import { HomeComponent } from './component/home/home.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, HomeComponent],
   templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  products: Product[] = [];
-  allProducts: Product[] = [];
-
-  constructor(private productService: ProductService) {}
-
-  ngOnInit() {
-    this.productService.getProducts().subscribe(products => {
-      this.allProducts = products;
-      this.products = products;
-    });
-  }
-
-  onSearch(term: string) {
-    this.products = this.allProducts.filter(p => 
-      p.name.toLowerCase().includes(term.toLowerCase())
-    );
-  }
-
-  onFilter(category: string) {
-    this.products = this.allProducts.filter(p => p.category === category);
-  }
+export class AppComponent {
+  title = 'E-commerce';
 }
-
-
